@@ -1,12 +1,11 @@
 @extends('layouts.app')
 
 @section('title')
-@parent | Главная
+    @parent Админка
 @endsection
 
-
-@section('menu')
-    @include('menu')
+@section ('menu')
+    @include('admin.menu')
 @endsection
 
 @section('content')
@@ -15,11 +14,10 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <p>Добро пожаловать в агрегатор новостей!</p>
+                        <p>Админка</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 @endsection
