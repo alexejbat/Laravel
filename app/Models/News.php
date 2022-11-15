@@ -49,6 +49,7 @@ class News
 
     public function getNews(): array
     {
+        //TODO читать данные из файла Get
         return $this->news;
     }
 
