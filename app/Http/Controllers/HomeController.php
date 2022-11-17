@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -14,6 +16,11 @@ class HomeController extends Controller
     public function __construct()
     {
        //$this->middleware('auth');
+    }
+
+    public function save(News $news)
+    {
+        Storage::disk('local')->put('news.json', json_encode($news->getNews(), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
     }
 
     /**
