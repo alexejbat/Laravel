@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.app')
 
 @section('title', 'Новость')
 
@@ -7,14 +7,25 @@
 @endsection
 
 @section('content')
-    @if ($news)
-        @if (!$news['isPrivate'])
-            <h2>{{ $news['title'] }}</h2>
-            <p>{{ $news['text'] }}</p>
-        @else
-            Зарегистрируйтесь для просмотра
-        @endif
-    @else
-        Нет новости с таким id
-    @endif
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        @if ($news)
+                            @if (!$news->isPrivate || Auth::check())
+                                <h2>{{ $news->title }}</h2>
+                                <div class="card-img" style="background-image: url({{ asset('storage/default.jpg') }})"></div>
+                                <p>{{ $news->text }}</p>
+                            @else
+                                Зарегистрируйтесь для просмотра
+                            @endif
+                        @else
+                            Нет новости с таким id
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

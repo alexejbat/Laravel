@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -13,8 +15,10 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-       //$this->middleware('auth');
+    //   $this->middleware('auth');
     }
+
+
 
     /**
      * Show the application dashboard.
@@ -23,6 +27,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+
         return view('index');
     }
 }
