@@ -10,14 +10,20 @@ class NewsController extends Controller
 {
     public function index()
     {
-        $news = DB::table('news')->get();
+        //$news = DB::table('news')->get();
+      //$news = News::where('isPrivate', false)->get();
+
+
+        $news = News::query()->paginate(5);
+
 
         return view('news.index')->with('news', $news);
     }
 
-    public function show($id)
+    public function show(News $news)
     {
-        $news = DB::table('news')->find($id);
+       // $news = DB::table('news')->find($id);
+       // $news = News::query()->find($id);
 
         return view('news.one')->with('news', $news);
     }

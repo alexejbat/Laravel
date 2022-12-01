@@ -14,7 +14,27 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <p>Админка</p>
+                        <h1>CRUD Новости</h1>
+                        @forelse($news as $item)
+                            <h2>{{ $item->title }}</h2>
+
+                            <form action="{{ route('admin.destroy', $item) }}" method="post">
+                                <a href="{{ route('admin.edit', $item) }}" class="btn btn-success">
+                                    Edit
+                                </a>
+                                @csrf
+                                @method('DELETE')
+                                <input type="submit" class="btn btn-danger" value="Delete">
+                            </form>
+
+
+
+
+                        @empty
+                            Нет новостей
+                        @endforelse
+
+                        {{ $news->links() }}
                     </div>
                 </div>
             </div>

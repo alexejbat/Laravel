@@ -2,54 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Facades\Storage;
+use App\Models\News;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class Category
+class Category extends Model
 {
-    private array $categories = [
-        1 => [
-            'id' => 1,
-            'title' => 'Спорт',
-            'slug' => 'sport'
-        ],
-        2 => [
-            'id' => 2,
-            'title' => 'Политика',
-            'slug' => 'politics'
-        ],
-    ];
+    use HasFactory;
 
-    public function getCategoryNameBySlug($slug)
-    {
-        $id = $this->getCategoryIdBySlug($slug);
-        $category = $this->getCategoryById($id);
-        if ($category != [])
-            return $category['title'];
-        else return null;
-    }
+    protected $fillable = ['name', 'slug'];
 
-    public function getCategoryIdBySlug($slug)
-    {
-        $id = null;
-        foreach ($this->getCategories() as $category) {
-            if ($category['slug'] == $slug) {
-                $id = $category['id'];
-                break;
-            }
-        }
-        return $id;
-    }
-
-    public function getCategories(): array
-    {
-        return json_decode(Storage::disk('local')->get('categories.json'), true);
-    }
-
-    public function getCategoryById($id)
-    {
-        if (array_key_exists($id, $this->getCategories()))
-            return $this->categories[$id];
-        else
-            return null;
+    public function news() {
+        return $this->hasMany(News::class, 'category_id')->get();
     }
 }

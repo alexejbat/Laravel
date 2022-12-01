@@ -18,10 +18,7 @@ class HomeController extends Controller
        //$this->middleware('auth');
     }
 
-    public function save(News $news)
-    {
-        Storage::disk('local')->put('news.json', json_encode($news->getNews(), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
-    }
+
 
     /**
      * Show the application dashboard.
@@ -30,6 +27,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+
         return view('index');
     }
 }

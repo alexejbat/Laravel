@@ -18,7 +18,7 @@
                         @forelse($news as $item)
                             <h2>{{ $item['title'] }}</h2>
                             @if (!$item['isPrivate'])
-                                <a href="{{ route('news.show', $item['id']) }}">Подробнее..</a>
+                                <a href="{{ route('news.show', $item) }}">Подробнее..</a>
                             @endif
                         @empty
                             Нет новостей
