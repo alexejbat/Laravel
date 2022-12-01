@@ -7,9 +7,19 @@
 </li>
 
 <li class="nav-item">
-    <a class="nav-link {{ request()->routeIs('news.category.index')?' active':'' }}" href="{{ route('news.category.index') }}">Категории</a>
+    <a class="nav-link {{ request()->routeIs('news.category.index')?' active':'' }}"
+       href="{{ route('news.category.index') }}">Категории</a>
 </li>
 
-<li class="nav-item">
-    <a class="nav-link {{ request()->routeIs('admin.news.index')?' active':'' }}" href="{{ route('admin.news.index') }}">Админка</a>
-</li>
+@guest
+@else
+    @if (Auth::user()->is_admin)
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('admin.news.index')?' active':'' }}"
+               href="{{ route('admin.news.index') }}">Админка</a>
+        </li>
+    @endif
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('updateProfile') }}">Профиль</a>
+    </li>
+@endguest

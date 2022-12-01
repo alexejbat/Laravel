@@ -1,15 +1,16 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\HomeController;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\NewsController;
 use App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
-use App\Http\Controllers\Admin\ProfileController;
-
-use App\Http\Controllers\Admin\NewsController as asd;
+use App\Http\Controllers\Admin\ParserController;
+use App\Http\Controllers\Admin\UsersController as AdminUsersController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,12 @@ use App\Http\Controllers\Admin\NewsController as asd;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+Route::match(['get', 'post'], '/profile', [ProfileController::class, 'update'])->name('updateProfile')->middleware('auth');
+
+Route::get('/auth/vk', [LoginController::class, 'loginVK'])->name('vkLogin')->middleware('guest');
+Route::get('/auth/vk/response', [LoginController::class, 'responseVK'])->name('vkResponse')->middleware('guest');
+
+
 Route::name('news.')
     ->prefix('news')
     ->group(function () {
@@ -36,12 +43,17 @@ Route::name('news.')
             });
     });
 
+
 Route::name('admin.')
     ->prefix('admin')
     ->middleware(['auth', 'is_admin'])
     ->group(function () {
-        Route::match(['get', 'post'], '/profile', [ProfileController::class, 'update'])->name('updateProfile');
-        //TODO перевести на Resource
+
+        Route::get('/users', [AdminUsersController::class, 'index'])->name('updateUser');
+        Route::get('/users/toggleAdmin/{user}', [AdminUsersController::class, 'toggleAdmin'])->name('toggleAdmin');
+
+        Route::get('/parser', [ParserController::class, 'index'])->name('parser');
+
         Route::resource('/news', AdminNewsController::class)->except(['show']);
 
         //CRUD

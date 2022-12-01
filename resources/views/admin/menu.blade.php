@@ -18,5 +18,9 @@
 </li>
 
 <li class="nav-item">
-    <a class="nav-link" href="{{ route('admin.updateProfile') }}">Профиль</a>
+    <a class="nav-link" href="{{ route('admin.updateUser') }}">Пользователи</a>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link" href="{{ route('admin.parser') }}">Парсить</a>
 </li>
